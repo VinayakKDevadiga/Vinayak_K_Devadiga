@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinayak | Full Stack Developer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#020617;
+  --card:rgba(255,255,255,0.08);
+  --text:#fff;
+  --accent:#3b82f6;
+}
+
+.light-mode {
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --text:#020617;
+  --accent:#2563eb;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+html{scroll-behavior:smooth}
+
+body{
+  background:radial-gradient(ellipse at bottom,#0b1a33 0%,var(--bg) 100%);
+  color:var(--text);
+  transition:.3s;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity:.4;
+  z-index:-1;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 8%;
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,.3);
+  z-index:10;
+}
+
+nav ul{display:flex;gap:20px;list-style:none}
+nav a{text-decoration:none;color:var(--text)}
+
+.theme-toggle{
+  background:var(--accent);
+  border:none;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:80px 8%;
+  gap:40px;
+  flex-wrap:wrap;
+}
+
+.hero-left h1{font-size:42px}
+.hero-left h2{color:var(--accent);margin-top:10px}
+.hero-left p{margin-top:15px;max-width:500px}
+
+.hero-right img{
+  width: 70%;
+  border-radius:20px;
+  box-shadow:0 0 40px rgba(59,130,246,.5);
+}
+
+/* GENERAL */
+.btn{
+  padding:10px 20px;
+  background:var(--accent);
+  border:none;
+  border-radius:6px;
+  color:#fff;
+  margin-top:20px;
+  cursor:pointer;
+}
+
+section{padding:60px 8%;scroll-margin-top:80px}
+
+/* CARD */
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.1);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 0 25px rgba(59,130,246,.3);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+
+/* ===== CAROUSEL ===== */
+.carousel{position:relative;width:100%;overflow:hidden;border-radius:12px;margin-bottom:12px}
+.carousel-track{display:flex;transition:transform .4s ease}
+.carousel img{
+  width:50%;
+  height:80%;
+  object-fit:cover;
+  flex-shrink:0;
+  border-radius:12px;
+  border:2px solid white;
+}
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,.5);
+  border:none;
+  color:#fff;
+  padding:6px 10px;
+  cursor:pointer;
+  border-radius:6px;
+}
+.prev{left:8px}
+.next{right:8px}
+
+/* PROJECT */
+.project-title{font-size:20px;margin-bottom:10px}
+.project-tech{color:#93c5fd;font-size:14px;margin-top:10px}
+
+.project-links a{
+  display:inline-block;
+  margin-top:10px;
+  margin-right:10px;
+  padding:6px 12px;
+  background:#1e40af;
+  border-radius:6px;
+  text-decoration:none;
+  color:#fff;
+  font-size:13px;
+}
+
+/* ANIMATION */
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+footer{text-align:center;padding:20px}
+
+/* TMS */
+.tms-carousel {
+  height:70%;
+  display:flex;
+  align-items:center;
+}
+.tms-carousel .carousel-track {
+  align-items:center;
+}
+.tms-carousel img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:rgba(255,255,255,0.05);
+  padding:5px;
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  position: relative;
+  margin-top: 60px;
+  padding: 40px 0;
+}
+
+/* LINE */
+.timeline-line {
+  position:absolute;
+  top:50%;left:0;width:100%;height:6px;
+  background:rgba(255,255,255,0.2);
+  transform:translateY(-50%);
+  border-radius:10px;
+}
+
+.timeline-progress {
+  position:absolute;
+  top:50%;left:0;height:6px;width:0%;
+  background:var(--accent);
+  transform:translateY(-50%);
+  border-radius:10px;
+}
+
+.timeline-item {
+  display:inline-block;
+  width:45%;
+  text-align:center;
+  position:relative;
+}
+
+.timeline-item:nth-child(3){
+  margin-left:10%;
+}
+
+/* STOP (circle) */
+.dot {
+  width:22px;height:22px;
+  border:4px solid var(--accent);
+  border-radius:50%;
+  margin:auto;
+  position:relative;
+}
+
+.dot::before{
+  content:"";
+  width:8px;height:8px;
+  background:var(--accent);
+  border-radius:50%;
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+}
+
+/* SUMMARY */
+.summary{
+  margin-top:15px;
+}
+
+.summary span{
+  color:#93c5fd;
+  font-size:13px;
+}
+
+/* HIDDEN CONTENT */
+.content{
+  position:absolute;
+  top:-140px;
+  left:50%;
+  transform:translateX(-50%) scale(0.8);
+  background:var(--card);
+  padding:15px;
+  border-radius:12px;
+  width:220px;
+  opacity:0;
+  transition:0.3s;
+}
+
+/* HOVER */
+.timeline-item:hover .content{
+  opacity:1;
+  transform:translateX(-50%) scale(1);
+}
+
+.timeline-item:hover .dot{
+  transform:scale(1.3);
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  padding:20px;border-radius:12px;
+}
+
+/* SECTIONS */
+section{padding:60px 8%}
+
+
+h2{
+  margin-bottom: 5px;
+}
+
+@media(max-width:768px){
+  .hero{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h2>Vinayak</h2>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <h1>Hi, I'm Vinayak</h1>
+    <h2>Full Stack Developer</h2>
+    <p>I build scalable backend systems, real-time apps and production-ready full stack applications.</p>
+    <button class="btn" onclick="scrollToSection('projects')">View Projects</button>
+    <!-- DOWNLOAD RESUME -->
+    <a href="Resume.pdf" download>
+      <button class="btn">⬇ Download Resume</button>
+    </a>
+  </div>
+    <div class="hero-right">
+      <img src="profile.png" alt="Vinayak">
+    </div>
+</div>
+
+<section id="about" class="reveal">
+  <h2>About Me</h2>
+  
+  <div class="card">
+    <p>
+      I don’t just write code — I build solutions that work in the real world.
+      From backend logic to user experience, I enjoy turning complex problems 
+      into simple, scalable products.
+    </p>
+    <p style="margin-top:15px">
+      Always learning. Always building.
+    </p>
+  </div>
+</section>
+
+<section id="experience">
+  <h2>Experience</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-line"></div>
+    <div class="timeline-progress" id="timelineProgress"></div>
+
+    <!-- ITEM 1 -->
+    <div class="timeline-item">
+      <div class="dot"></div>
+
+      <div class="summary">
+        <h3>Associate Software Engineer</h3>
+        <span>2024 - Present</span>
+      </div>
+
+      <div class="content">
+        <h3>MapleLabs</h3>
+        <p>Django dashboards, automation, CI/CD</p>
+      </div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="timeline-item">
+      <div class="dot"></div>
+
+      <div class="summary">
+        <h3>Intern</h3>
+        <span>2023</span>
+      </div>
+
+      <div class="content">
+        <h3>Zephyr</h3>
+        <p>MERN Travel Management System</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="projects" class="reveal">
+  <h2>Projects</h2>
+  <div class="grid">
+
+    <!-- JBOOK -->
+    <div class="card">
+      <div class="carousel">
+        <div class="carousel-track">
+          <img src="images/jbook1.png">
+          <img src="images/jbook2.png">
+          <img src="images/jbook3.png">
+          <img src="images/jbook4.png">
+          <img src="images/jbook5.png">
+          <img src="images/jbook6.png">
+        </div>
+        <button class="carousel-btn prev">❮</button>
+        <button class="carousel-btn next">❯</button>
+      </div>
+      <div class="project-title">JBOOK</div>
+      <p>
+        SaaS subscription based Production-grade billing system built with Django REST Framework serving real world clients.
+        Features JWT authentication, invoice management and automated reporting. 
+      </p>
+      <div class="project-tech">Django, React Native, PostgreSQL</div>
+
+      <div class="project-links">
+        <a href="https://github.com/VinayakKDevadiga/JBOOK" target="_blank">GitHub</a>
+        <a href="https://drive.google.com/drive/folders/1cgZev70FyJ7XoyutnaeQQBrtdvzhLAep" target="_blank">Live App</a>
+      </div>
+    </div>
+
+    <!-- ACE GAME -->
+    <div class="card">
+      <div class="carousel">
+        <div class="carousel-track">
+          <img src="images/ace1.png">
+          <img src="images/ace2.png">
+          <img src="images/ace3.png">
+          <img src="images/ace4.png">
+          <img src="images/ace5.png">
+          <img src="images/ace6.png">
+          <img src="images/ace7.png">
+          <img src="images/ace8.png">
+          <img src="images/ace9.png">
+          <img src="images/ace10.png">
+        </div>
+        <button class="carousel-btn prev">❮</button>
+        <button class="carousel-btn next">❯</button>
+      </div>
+      <div class="project-title">AceGame</div>
+      <p>
+        Real-time multiplayer card game using Django and WebSockets.
+        Includes live communication and Redis-based state handling.
+      </p>
+      <div class="project-tech">Django, WebSockets, Redis</div>
+
+      <div class="project-links">
+        <a href="https://github.com/VinayakKDevadiga/AceGame" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <!-- TMS -->
+    <div class="card">
+      <div class="carousel tms-carousel">
+        <div class="carousel-track">
+          <img src="images/tms1.png">
+          <img src="images/tms2.png">
+          <img src="images/tms3.png">
+          <img src="images/tms4.png">
+          <img src="images/tms5.png">
+          <img src="images/tms6.png">
+          <img src="images/tms7.png">
+          <img src="images/tms8.png">
+          <img src="images/tms9.png">
+        </div>
+        <button class="carousel-btn prev">❮</button>
+        <button class="carousel-btn next">❯</button>
+      </div>
+      <div class="project-title">Travel Management System</div>
+      <p>
+        Full-stack MERN application with authentication and admin panel.
+        Includes booking system and package management APIs.
+      </p>
+      <div class="project-tech">MongoDB, Express, React, Node.js</div>
+
+      <div class="project-links">
+        <a href="https://github.com/VinayakKDevadiga/MERN-Project--Travel-Management-System" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Add this in your <head> if not already added -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<section id="contact" class="reveal">
+  <h2>Contact</h2>
+
+  <div class="card contact-card">
+    <p>
+      <i class="fas fa-envelope icon"></i>
+      <span>Email:</span> 
+      <a href="mailto:vinayakkdevadiga@gmail.com">vinayakkdevadiga@gmail.com</a>
+    </p>
+
+    <p>
+      <i class="fab fa-instagram icon"></i>
+      <span>Instagram:</span> 
+      <a style="text-decoration:none; color: #ad0483;" href="https://instagram.com/unique_ruler_" target="_blank">
+        Vinayak Devadiga
+      </a>
+    </p>
+  </div>
+</section>
+
+<footer>© 2026 Vinayak</footer>
+
+<script>
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'})
+}
+
+function revealOnScroll(){
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight-100)
+      el.classList.add('active')
+  })
+}
+window.addEventListener('scroll',revealOnScroll);
+
+/* ===== THEME ===== */
+function toggleTheme(){
+  document.body.classList.toggle("light-mode");
+  localStorage.setItem("theme",
+    document.body.classList.contains("light-mode")?"light":"dark"
+  );
+}
+
+window.addEventListener("load",()=>{
+  if(localStorage.getItem("theme")==="light"){
+    document.body.classList.add("light-mode");
+  }
+});
+
+/* ===== CAROUSEL ===== */
+document.querySelectorAll('.carousel').forEach(carousel=>{
+  const track=carousel.querySelector('.carousel-track');
+  const slides=track.children;
+  let index=0;
+
+  const isTMS=carousel.classList.contains('tms-carousel');
+  const step=isTMS?1:2;
+
+  function update(){
+    const slideWidth=isTMS?100:50;
+    track.style.transform=`translateX(-${index*slideWidth}%)`;
+  }
+
+  carousel.querySelector('.next').onclick=()=>{
+    index+=step;
+    if(index>=slides.length) index=0;
+    update();
+  };
+
+  carousel.querySelector('.prev').onclick=()=>{
+    index-=step;
+    if(index<0) index=slides.length-step;
+    update();
+  };
+});
+
+function updateTimeline() {
+  const section = document.getElementById("experience");
+  const progress = document.getElementById("timelineProgress");
+
+  const rect = section.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  let visible = windowHeight - rect.top;
+  let total = section.offsetHeight;
+
+  let percent = Math.min(Math.max(visible / total, 0), 1);
+
+  progress.style.width = percent * 100 + "%";
+}
+
+window.addEventListener("scroll", updateTimeline);
+</script>
+
+</body>
+</html>
